@@ -1,45 +1,35 @@
 <template>
   <div>
-    <div class="robot-name">{{ selectedRobot.head.description  }}</div>
+    <!-- <div class="robot-name">{{ selectedRobot.head.description  }}</div>
     <div class="robot-name2">{{ availableParts.torsos[selectBodyIndex].description  }}</div>
     <div class="robot-name2">{{ availableParts.bases[selectBaseIndex].description  }}</div>
 
- <span v-if="availableParts.heads[selectHeadIndex].onSale" class="sale">Sale!</span>
+ <span v-if="availableParts.heads[selectHeadIndex].onSale" class="sale">Sale!</span> -->
  
   </div>
 
    <div>
     <button class="add-to-cart"  @click="addToCart">Add to cart</button>
     <div class="top-row">
-      <div class="top part">
+      <PartSelector :parts="availableParts.heads" :position="top" />
+      <!-- <div class="top part">
         <img v-bind:src="availableParts.heads[ selectHeadIndex ].src" alt="head"/>
         <button class="prev-selector" v-on:click="SelectPrevHead()" >&#9668;</button>
         <button class="next-selector"  v-on:click="SelectNextHead()" >&#9658;</button>
-      </div>
+      </div> -->
     </div>
     <div class="middle-row">
-      <div class="left part">
-        <img v-bind:src="availableParts.arms[selectLeftArmIndex].src" alt="left arm"/>
-        <button class="prev-selector" v-on:click="SelectNextLeftArm()" >&#9650;</button>
-        <button class="next-selector" v-on:click="SelectPreviousLeftArm()">&#9660;</button>
-      </div>
-      <div class="center part">
-        <img v-bind:src="availableParts.torsos[selectBodyIndex].src" alt="torsos"/>
-        <button class="prev-selector" v-on:click="SelectNextBody()" >&#9668;</button>
-        <button class="next-selector" v-on:click="SelectPreviousBody()">&#9658;</button>
-      </div>
-      <div class="right part">
-        <img v-bind:src="availableParts.arms[selectRightArmIndex].src" alt="right arm"/>
-        <button class="prev-selector" v-on:click="SelectNextRightArm()">&#9650;</button>
-        <button class="next-selector" v-on:click="SelectPrevRightArm()" >&#9660;</button>
-      </div>
+      <PartSelector :parts="availableParts.arms" position="left" />
+      <PartSelector :parts="availableParts.torsos" position="center"/>
+      <PartSelector :parts="availableParts.arms" position="right"/>
     </div>
     <div class="bottom-row">
-      <div class="bottom part">
+      <PartSelector :parts="availableParts.bases" position="bottom" />
+      <!-- <div class="bottom part">
         <img :src="availableParts.bases[selectBaseIndex].src" alt="base"/>
         <button class="prev-selector" @click="SelectPreviousBase()" >&#9668;</button>
         <button class="next-selector" @click="SelectNextBase()">&#9658;</button>
-      </div>
+      </div>  -->
     </div>
     <h1>Cart</h1>
     <table>
@@ -63,34 +53,23 @@
     import {toCurrency} from "../shared/formatters"; 
     import parts from "../data/parts";
     import createdHookMixin from "./created-hook-mixin";
-    
-      // #region private functions
-      function getNextValidIndex(index,length){
-        const newIndex =  index+1;
-        return  newIndex >length-1?0:newIndex ;
-      }
-      function getPreviousValidIndex(index,length){
-        const newIndex =  index-1;
-        return  newIndex <0 ? length-1 : newIndex ;
-      }
-      // #endregion private functions
+    import PartSelector from '@/build/PartSelector.vue'  ;
       // #region LifeCycle
       createdHookMixin.created();
       onMounted( ()=>{ console.log("no soy tan maje"); }  );
       // #endregion LifeCycle
-
       
       const availableParts=parts;
-      const  selectHeadIndex=ref(0),selectRightArmIndex=ref(0),selectLeftArmIndex=ref(0), selectBodyIndex=ref(0),selectBaseIndex=ref(0);
+    //  const  selectHeadIndex=ref(0),selectRightArmIndex=ref(0),selectLeftArmIndex=ref(0), selectBodyIndex=ref(0),selectBaseIndex=ref(0);
       const  cart=  reactive([]);   //[];
 
-     const  selectedRobot = computed( () => ({
-             head:availableParts.heads[selectHeadIndex.value],
-             leftArm:availableParts.arms[selectLeftArmIndex.value],
-             rightArm:availableParts.arms[selectRightArmIndex.value],
-             torso:availableParts.torsos[selectBodyIndex.value],
-             base:availableParts.bases[selectBaseIndex.value],
-       }) );
+     const  selectedRobot = ref ({
+             head:{},
+             leftArm:{},
+             rightArm:{},
+             torso:{},
+             base:{},
+     });
 
      const addToCart=()=>{
      const robot = selectedRobot.value ;
@@ -104,60 +83,6 @@
            cart.push({...robot,cost}); 
            console.log(cart);
     };
-    // #region Part selector method
-    const  SelectNextHead=()=>{
-         console.log('heads up');
-         selectHeadIndex.value = getNextValidIndex(selectHeadIndex.value,availableParts.heads.length );
-         showConsole();
-        };
-        const  SelectPrevHead=()=>{
-        console.log('heads down');
-        selectHeadIndex.value = getPreviousValidIndex(selectHeadIndex.value,availableParts.heads.length );
-        showConsole();
-      };
-      const   SelectNextRightArm=()=>{
-        selectRightArmIndex.value = getNextValidIndex(selectRightArmIndex.value,availableParts.arms.length );
-        showConsole();
-      };
-      const  SelectPrevRightArm=()=>{
-        selectRightArmIndex.value = getPreviousValidIndex(selectRightArmIndex.value,availableParts.arms.length );
-        showConsole();
-      };
-      const  SelectNextLeftArm=()=>{
-        selectLeftArmIndex.value = getNextValidIndex(selectLeftArmIndex.value,availableParts.arms.length );
-        showConsole();
-      };
-      const  SelectPreviousLeftArm=()=>{
-        selectLeftArmIndex.value = getPreviousValidIndex(selectLeftArmIndex.value,availableParts.arms.length );
-        showConsole();
-      };
-      const  SelectNextBody=()=>{
-        selectBodyIndex.value = getNextValidIndex(selectBodyIndex.value,availableParts.torsos.length );
-        showConsole();
-      };
-      const  SelectPreviousBody=()=>{
-        selectBodyIndex.value = getPreviousValidIndex(selectBodyIndex.value,availableParts.torsos.length );
-        showConsole();
-      };
-      const   SelectNextBase=()=>{
-        selectBaseIndex.value = getNextValidIndex(selectBaseIndex.value,availableParts.bases.length );
-        showConsole();
-      };
-      const   SelectPreviousBase=()=>{
-        selectBaseIndex.value = getPreviousValidIndex(selectBaseIndex.value,availableParts.bases.length );
-        showConsole();
-      };
-      const   showConsole=()=>{
-        console.log("showing console...");
-         console.log("Head value:"+ selectHeadIndex.value);
-      //   console.log("Left hand value:"+ selectLeftArmIndex.value);
-       //  console.log("Right hand value:"+ selectRightArmIndex.value);
-     //   console.log("Body value:"+ selectBodyIndex.value);
-     // console.log("Head body:"+ selectHeadIndex.value);
-     //    console.log("Base value:"+ selectBaseIndex.value);
-      };
-    // #endregion Part selector method
-
 </script>
 
 <style>
