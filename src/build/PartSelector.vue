@@ -1,5 +1,6 @@
 <template>
   <div class="part" :class="position">
+<h5>{{ UserName }}</h5>
     <img :src="selectedPart.src" title="arm"/>
     <button @click="selectPreviousPart()" class="prev-selector"></button>
     <button @click="selectNextPart()" class="next-selector"></button>
@@ -8,8 +9,10 @@
 </template>
 
 <script setup>
-import {computed,onUpdated,ref} from 'vue';
+import {computed,inject,onUpdated,ref} from 'vue';
 import availableParts from '../data/parts';
+
+const UserName =inject('UserName');
 
 // const props= defineProps(['parts','position']);
 const props= defineProps({
