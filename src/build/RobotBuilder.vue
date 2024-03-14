@@ -5,25 +5,25 @@
     <div class="robot-name2">{{ availableParts.bases[selectBaseIndex].description  }}</div>
 
  <span v-if="availableParts.heads[selectHeadIndex].onSale" class="sale">Sale!</span> -->
- 
- <div class="preview">
-      <div class="preview-content">
-        <div class="top-row">
-          <img :src="selectedRobot.head.src"/>
-        </div>
-        <div class="middle-row">
-          <img :src="selectedRobot.leftArm.src" class="rotate-left"/>
-          <img :src="selectedRobot.torso.src"/>
-          <img :src="selectedRobot.rightArm.src" class="rotate-right"/>
-        </div>
-        <div class="bottom-row">
-          <img :src="selectedRobot.base.src"/>
-        </div>
+ <CollapsibleSection>
+  <div class="preview">
+    <div class="preview-content">
+      <div class="top-row">
+        <img :src="selectedRobot.head.src"/>
+      </div>
+      <div class="middle-row">
+        <img :src="selectedRobot.leftArm.src" class="rotate-left"/>
+        <img :src="selectedRobot.torso.src"/>
+        <img :src="selectedRobot.rightArm.src" class="rotate-right"/>
+      </div>
+      <div class="bottom-row">
+        <img :src="selectedRobot.base.src"/>
       </div>
     </div>
-
   </div>
-
+</CollapsibleSection>
+<!-- <CollapsibleSection> Is working </CollapsibleSection> -->
+  </div>
    <div>
     <button class="add-to-cart"  @click="addToCart">Add to cart</button>
     <div class="top-row">
@@ -66,6 +66,7 @@
     import parts from "../data/parts";
     import createdHookMixin from "./created-hook-mixin";
     import PartSelector from '@/build/PartSelector.vue'  ;
+    import CollapsibleSection from  "../shared/CollapsibleSection";
       // #region LifeCycle
       createdHookMixin.created();
       onMounted( ()=>{ console.log("no soy tan maje"); }  );
