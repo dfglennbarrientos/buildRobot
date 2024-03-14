@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import {computed,ref} from 'vue';
+import {computed,onUpdated,ref} from 'vue';
 import availableParts from '../data/parts';
 
 // const props= defineProps(['parts','position']);
@@ -28,6 +28,8 @@ const selectedPart = computed(  ()=> props.parts[selectedPartIndex.value] );
 
 emit('partSelected',selectedPart); // to run Emit during creation
 
+onUpdated( ()=> emit('partSelected',selectedPart) );
+
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
   return deprecatedIndex < 0 ? length - 1 : deprecatedIndex;
@@ -40,12 +42,10 @@ function getNextValidIndex(index, length) {
 
 const selectNextPart =()=>{
       selectedPartIndex.value = getNextValidIndex( selectedPartIndex.value,  props.parts.length);
-      emit('partSelected',selectedPart);
     };
     
     const selectPreviousPart=()=> {
       selectedPartIndex.value = getPreviousValidIndex( selectedPartIndex.value,props.parts.length    );
-      emit('partSelected',selectedPart);
     }; 
 </script>
 
