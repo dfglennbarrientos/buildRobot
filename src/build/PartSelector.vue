@@ -19,10 +19,14 @@ const props= defineProps({
   validator(value) { return ['top','bottom','right','left','center'].includes(value); },
   },
 });
+const emit = defineEmits(['partSelected']);
 
 const parts = availableParts.heads;
 const selectedPartIndex= ref(0); 
 const selectedPart = computed(  ()=> props.parts[selectedPartIndex.value] ); 
+
+// to run Emit durin creation
+emit('partSelected',selectedPart);
 
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
@@ -36,10 +40,12 @@ function getNextValidIndex(index, length) {
 
 const selectNextPart =()=>{
       selectedPartIndex.value = getNextValidIndex( selectedPartIndex.value,  props.parts.length);
+      emit('partSelected',selectedPart);
     };
-
-const selectPreviousPart=()=> {
-       selectedPartIndex.value = getPreviousValidIndex( selectedPartIndex.value,props.parts.length    );
+    
+    const selectPreviousPart=()=> {
+      selectedPartIndex.value = getPreviousValidIndex( selectedPartIndex.value,props.parts.length    );
+      emit('partSelected',selectedPart);
     }; 
 </script>
 

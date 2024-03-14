@@ -11,7 +11,7 @@
    <div>
     <button class="add-to-cart"  @click="addToCart">Add to cart</button>
     <div class="top-row">
-      <PartSelector :parts="availableParts.heads" :position="top" />
+      <PartSelector :parts="availableParts.heads" :position="top"  @partSelected="part=> selectedRobot.head = part" />
       <!-- <div class="top part">
         <img v-bind:src="availableParts.heads[ selectHeadIndex ].src" alt="head"/>
         <button class="prev-selector" v-on:click="SelectPrevHead()" >&#9668;</button>
@@ -19,12 +19,12 @@
       </div> -->
     </div>
     <div class="middle-row">
-      <PartSelector :parts="availableParts.arms" position="left" />
-      <PartSelector :parts="availableParts.torsos" position="center"/>
-      <PartSelector :parts="availableParts.arms" position="right"/>
+      <PartSelector :parts="availableParts.arms" position="left" @partSelected="part=> selectedRobot.leftArm = part"/>
+      <PartSelector :parts="availableParts.torsos" position="center" @partSelected="part=> selectedRobot.torso = part" />
+      <PartSelector :parts="availableParts.arms" position="right" @partSelected="part=> selectedRobot.rightArm = part"/>
     </div>
     <div class="bottom-row">
-      <PartSelector :parts="availableParts.bases" position="bottom" />
+      <PartSelector :parts="availableParts.bases" position="bottom" @partSelected="part=> selectedRobot.base = part"/>
       <!-- <div class="bottom part">
         <img :src="availableParts.bases[selectBaseIndex].src" alt="base"/>
         <button class="prev-selector" @click="SelectPreviousBase()" >&#9668;</button>
@@ -70,6 +70,7 @@
              torso:{},
              base:{},
      });
+
 
      const addToCart=()=>{
      const robot = selectedRobot.value ;
