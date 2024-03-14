@@ -6,17 +6,29 @@
 
  <span v-if="availableParts.heads[selectHeadIndex].onSale" class="sale">Sale!</span> -->
  
+ <div class="preview">
+      <div class="preview-content">
+        <div class="top-row">
+          <img :src="selectedRobot.head.src"/>
+        </div>
+        <div class="middle-row">
+          <img :src="selectedRobot.leftArm.src" class="rotate-left"/>
+          <img :src="selectedRobot.torso.src"/>
+          <img :src="selectedRobot.rightArm.src" class="rotate-right"/>
+        </div>
+        <div class="bottom-row">
+          <img :src="selectedRobot.base.src"/>
+        </div>
+      </div>
+    </div>
+
   </div>
 
    <div>
     <button class="add-to-cart"  @click="addToCart">Add to cart</button>
     <div class="top-row">
+      <!-- we can use a partSelectedHandler function but he used am arrow function instead, I need to investigate more -->
       <PartSelector :parts="availableParts.heads" :position="top"  @partSelected="part=> selectedRobot.head = part" />
-      <!-- <div class="top part">
-        <img v-bind:src="availableParts.heads[ selectHeadIndex ].src" alt="head"/>
-        <button class="prev-selector" v-on:click="SelectPrevHead()" >&#9668;</button>
-        <button class="next-selector"  v-on:click="SelectNextHead()" >&#9658;</button>
-      </div> -->
     </div>
     <div class="middle-row">
       <PartSelector :parts="availableParts.arms" position="left" @partSelected="part=> selectedRobot.leftArm = part"/>
@@ -191,6 +203,29 @@ color: red;
 }
 .right .next-selector {
   right: -3px;
+}
+
+
+.preview {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  width: 210px;
+  height: 210px;
+  padding: 5px;
+}
+.preview-content {
+  border: 1px solid #999;
+}
+.preview img {
+  width: 50px;
+  height: 50px;
+}
+.rotate-right {
+  transform: rotate(90deg);
+}
+.rotate-left {
+  transform: rotate(-90deg);
 }
 
 </style>

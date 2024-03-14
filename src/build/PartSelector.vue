@@ -25,8 +25,8 @@ const parts = availableParts.heads;
 const selectedPartIndex= ref(0); 
 const selectedPart = computed(  ()=> props.parts[selectedPartIndex.value] ); 
 
-// to run Emit durin creation
-emit('partSelected',selectedPart);
+
+emit('partSelected',selectedPart); // to run Emit during creation
 
 function getPreviousValidIndex(index, length) {
   const deprecatedIndex = index - 1;
