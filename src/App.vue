@@ -9,22 +9,14 @@ Build a Bot
     </nav>
   </header>
    <main>
-    <div class="robot-name">
-      This is a test
-    </div>
-    <RobotBuilder></RobotBuilder>
-    <!-- <ProductSearch></ProductSearch> -->
+    <router-view></router-view>
    </main>
 </template>
 
 <script>
-import RobotBuilder from './build/RobotBuilder.vue';
-// import ProductSearch from './search/ProductSearch.vue';
 export default {
   name: 'App',
   components: {
-    RobotBuilder,
-    // ProductSearch,
   },
   provide:{
     UserName:"Glenn",

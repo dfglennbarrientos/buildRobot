@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    This the homepage component
     <h1>{{ msg }}</h1>
   </div>
 </template>
