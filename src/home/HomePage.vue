@@ -1,8 +1,13 @@
 <template>
-  <div class="hello">
-    This the homepage component
-    <h1>{{ msg }}</h1>
-  </div>
+<div class="home">
+<div>
+<img src="../assets/robot-home.png"  aria-hidden="true" alt="robot" class="robot">
+</div>
+<div class="get-started">
+<router-link to="/build"  >Get started.</router-link>
+build your robot!
+</div>
+</div>
 </template>
 
 <script>
@@ -14,20 +19,11 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.home{
+  text-align: center;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.robot{
+ width: 150;
 }
 </style>

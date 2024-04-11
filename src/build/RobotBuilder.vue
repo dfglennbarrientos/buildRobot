@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link to="/home"  >go back.</router-link>
     <!-- <div class="robot-name">{{ selectedRobot.head.description  }}</div>
     <div class="robot-name2">{{ availableParts.torsos[selectBodyIndex].description  }}</div>
     <div class="robot-name2">{{ availableParts.bases[selectBaseIndex].description  }}</div>

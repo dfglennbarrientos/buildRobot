@@ -1,7 +1,14 @@
 <template>
   <div class="part" :class="position">
-<h5>{{ UserName }}</h5>
-    <img :src="selectedPart.src" title="arm"/>
+<!-- <h5>{{ UserName }}</h5> -->
+<RouterLink :to="{
+  name:'Parts',
+  params:{partType:selectedPart.type, id:selectedPart.id}
+  }"
+
+alt="parts">
+  <img :src="selectedPart.src" title="arm"/>
+</RouterLink>
     <button @click="selectPreviousPart()" class="prev-selector"></button>
     <button @click="selectNextPart()" class="next-selector"></button>
     <span class="sale" v-show="selectedPart.onSale">Sale!</span>
